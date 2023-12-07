@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centered Horizontal Navigation Bar</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            height: 100vh; /* 100% of the viewport height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar {
+            background-color: #333;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .navbar li {
+            margin-right: 20px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .navbar img {
+            width: 30px; /* Adjust the icon size */
+            height: auto;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <ul>
+        <li><a href="#"><img src="icon1.png" alt="Icon 1">Item 1</a></li>
+        <li><a href="#"><img src="icon2.png" alt="Icon 2">Item 2</a></li>
+        <li><a href="#"><img src="icon3.png" alt="Icon 3">Item 3</a></li>
+        <li><a href="#"><img src="icon4.png" alt="Icon 4">Item 4</a></li>
+        <li><a href="#"><img src="icon5.png" alt="Icon 5">Item 5</a></li>
+    </ul>
+</div>
+
+</body>
+</html>

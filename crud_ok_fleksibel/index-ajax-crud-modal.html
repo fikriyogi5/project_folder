@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Page</title>
+    <!-- Include Bootstrap CSS for styling -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Include Bootstrap JS for modal functionality -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>CRUD Page</h2>
+    <button class="btn btn-success" data-toggle="modal" data-target="#addRecordModal">Add Record</button>
+    <div id="records-container"></div>
+</div>
+
+<!-- Add Record Modal -->
+<div class="modal fade" id="addRecordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal content here -->
+</div>
+
+<!-- Edit Record Modal -->
+<div class="modal fade" id="editRecordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal content here -->
+</div>
+
+<script>
+    // AJAX function to fetch and display records
+    function fetchRecords() {
+        $.ajax({
+            url: 'ajax-handler.php',
+            method: 'GET',
+            data: { table: 'users' }, // Replace 'users' with your actual table name
+            dataType: 'html',
+            success: function (response) {
+                $('#records-container').html(response);
+            }
+        });
+    }
+
+    // AJAX function to add a new record
+    $('#addRecordForm').submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: 'ajax-handler.php',
+            method: 'POST',
+            data: {
+                table: 'users', // Replace 'users' with your actual table name
+                data: $(this).serialize()
+            },
+            success: function (response) {
+                alert(response); // Show success or error message
+                $('#addRecordModal').modal('hide');
+                fetchRecords(); // Refresh the records after adding a new one
+            }
+        });
+    });
+
+    // AJAX function to delete a record
+    function deleteRecord(id) {
+        $.ajax({
+            url: 'ajax-handler.php',
+            method: 'POST',
+            data: {
+                action: 'delete',
+                table: 'users', // Replace 'users' with your actual table name
+                id: id
+            },
+            success: function (response) {
+                alert(response); // Show success or error message
+                fetchRecords(); // Refresh the records after deletion
+            }
+        });
+    }
+
+    // AJAX function to edit a record
+    function editRecord(id) {
+        $.ajax({
+            url: 'ajax-handler.php',
+            method: 'GET',
+            data: {
+                action: 'edit',
+                table: 'users', // Replace 'users' with your actual table name
+                id: id
+            },
+            dataType: 'html',
+            success: function (response) {
+                $('#editRecordModal .modal-content').html(response);
+                $('#editRecordModal').modal('show');
+            }
+        });
+    }
+
+
+    // Event listener for edit links
+    $('#records-container').on('click', '.edit-link', function (e) {
+        e.preventDefault();
+        var recordId = $(this).data('id');
+        openEditModal(recordId);
+    });
+
+    // Event listener for delete links
+    $('#records-container').on('click', '.delete-link', function (e) {
+        e.preventDefault();
+        var recordId = $(this).data('id');
+        if (confirm('Are you sure you want to delete this record?')) {
+            deleteRecord(recordId);
+        }
+    });
+
+    // ...
+
+    // Function to open the edit modal
+    function openEditModal(recordId) {
+        $.ajax({
+            url: 'ajax-handler.php',
+            method: 'GET',
+            data: {
+                action: 'edit',
+                table: 'example_table', // Replace 'example_table' with your actual table name
+                id: recordId
+            },
+            dataType: 'html',
+            success: function (response) {
+                $('#editRecordModal .modal-content').html(response);
+                $('#editRecordModal').modal('show');
+            }
+        });
+    }
+
+    // ...
+
+    // AJAX function to update a record
+    $('#editRecordModal').on('submit', '#editRecordForm', function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: 'ajax-handler.php',
+            method: 'POST',
+            data: {
+                action: 'update',
+                table: 'example_table', // Replace 'example_table' with your actual table name
+                id: $('#editRecordForm input[name="id"]').val(),
+                data: $(this).serialize()
+            },
+            success: function (response) {
+                alert(response); // Show success or error message
+                $('#editRecordModal').modal('hide');
+                fetchRecords(); // Refresh the records after updating
+            }
+        });
+    });
+
+
+    // Initial fetch of records when the page loads
+    fetchRecords();
+</script>
+
+</body>
+</html>

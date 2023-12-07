@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Validation</title>
+  <style>
+    .error {
+      color: red;
+    }
+
+    #passwordStrength {
+      margin-top: 5px;
+    }
+
+    #passwordInputContainer {
+      position: relative;
+    }
+
+    #showHidePassword {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="myForm" onsubmit="return validateForm()">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username">
+    <span id="usernameError" class="error"></span><br>
+
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email">
+    <span id="emailError" class="error"></span><br>
+
+    <label for="password">Password:</label>
+    <div id="passwordInputContainer">
+      <input type="password" id="password" name="password" oninput="checkPasswordStrength()">
+      <span id="showHidePassword" onclick="togglePasswordVisibility()">👁️</span>
+    </div>
+    <span id="passwordError" class="error"></span><br>
+    <div id="passwordStrength"></div>
+
+    <label for="confirmPassword">Confirm Password:</label>
+    <input type="password" id="confirmPassword" name="confirmPassword">
+    <span id="confirmPasswordError" class="error"></span><br>
+
+    <input type="checkbox" id="accept" name="accept"> I accept the terms and conditions
+    <span id="acceptError" class="error"></span><br>
+
+    <input type="submit" value="Submit">
+  </form>
+
+  <script>
+    function validateForm() {
+      // Reset errors
+      clearErrors();
+
+      // Get form values
+      var username = document.getElementById('username').value;
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+      var confirmPassword = document.getElementById('confirmPassword').value;
+      var accept = document.getElementById('accept').checked;
+
+      // Validate username
+      if (username === "") {
+        document.getElementById('usernameError').innerText = 'Username is required';
+        return false;
+      }
+
+      // Validate email
+      if (email === "") {
+        document.getElementById('emailError').innerText = 'Email is required';
+        return false;
+      }
+
+      // Validate password
+      if (password === "") {
+        document.getElementById('passwordError').innerText = 'Password is required';
+        return false;
+      }
+
+      // Validate password strength
+      var passwordStrength = checkPasswordStrength();
+      if (passwordStrength !== 'strong') {
+        document.getElementById('passwordError').innerText = 'Password must be strong';
+        return false;
+      }
+
+      // Validate confirm password
+      if (confirmPassword === "") {
+        document.getElementById('confirmPasswordError').innerText = 'Confirm Password is required';
+        return false;
+      }
+
+      if (password !== confirmPassword) {
+        document.getElementById('confirmPasswordError').innerText = 'Passwords do not match';
+        return false;
+      }
+
+      // Validate acceptance
+      if (!accept) {
+        document.getElementById('acceptError').innerText = 'You must accept the terms and conditions';
+        return false;
+      }
+
+      // If all validations pass, the form is submitted
+      return true;
+    }
+
+    function clearErrors() {
+      // Clear all error messages
+      document.getElementById('usernameError').innerText = '';
+      document.getElementById('emailError').innerText = '';
+      document.getElementById('passwordError').innerText = '';
+      document.getElementById('confirmPasswordError').innerText = '';
+      document.getElementById('acceptError').innerText = '';
+    }
+
+    function checkPasswordStrength() {
+      var password = document.getElementById('password').value;
+      var passwordStrengthDiv = document.getElementById('passwordStrength');
+
+      // Define the criteria for a strong password
+      var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+      if (regex.test(password)) {
+        passwordStrengthDiv.innerText = 'Password strength: Strong';
+        passwordStrengthDiv.style.color = 'green';
+        return 'strong';
+      } else {
+        passwordStrengthDiv.innerText = 'Password strength: Weak (at least 8 characters, 1 lowercase, 1 uppercase, 1 digit, 1 special character)';
+        passwordStrengthDiv.style.color = 'red';
+        return 'weak';
+      }
+    }
+
+    function togglePasswordVisibility() {
+      var passwordInput = document.getElementById('password');
+      var showHidePassword = document.getElementById('showHidePassword');
+
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        showHidePassword.innerText = '👁️';
+      } else {
+        passwordInput.type = 'password';
+        showHidePassword.innerText = '👁️';
+      }
+    }
+  </script>
+
+</body>
+</html>

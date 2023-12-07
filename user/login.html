@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Responsive Login Form Design</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* === Google Font ===*/
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+        *{
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* === Variables Define ===*/
+        :root{
+            --primary-color:#3525D3;
+            --white-color:#fff;
+            --black-color:#3C4A57; 
+            --light-gray:#E4E8EE;
+        }
+
+        /* === Body CSS ===*/
+        body{  
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* === Main Content CSS ===*/
+        .wrapper{
+            padding:50px 25px 0;
+            max-width:668px;
+            width:100%;
+            margin:auto;
+        }
+        .wrapper::before{
+            content:'';
+            position: absolute;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            background-image: url("images/bg-1.svg");
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            z-index: -1;
+        }
+        .wrapper .headline{
+            text-align: center;
+            padding-bottom:48px;
+        }
+        .wrapper .headline h1{
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 52px;
+        }
+        .wrapper .form{
+            max-width:350px;
+            width:100%;
+            margin:auto;
+        }
+        .wrapper .form-group{
+            margin-bottom: 15px;
+        }
+        .wrapper .form-group input{
+            display:block;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: -0.1px;
+            padding:11px 15px;
+            height:48px;
+            border-radius: 5px;
+            color:var(--black-color);
+            border:1px solid #e4e8ee;
+            box-shadow: none;
+            width:100%;
+        }
+        .wrapper .form-group input:focus{
+            outline:none;
+        }
+        .wrapper .form-group input::placeholder{
+            color:var(--black-color);
+            font-weight: 400;
+            font-size: 14px;
+        }
+        .wrapper .btn{
+            width:100%;
+            margin:15px 0 30px;
+            font-size: 14px;
+            line-height: 22px;
+            font-weight: 700;
+            padding:12px 29px;
+            height:48px;
+            text-transform: uppercase;
+            color:var(--white-color);
+            background-color: var(--primary-color);
+            border:none;
+            border-radius: 2px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .wrapper .btn:focus{
+            outline:none;
+        }
+        .wrapper .account-exist{
+            color:var(--black-color);
+            border-top:1px solid var(--light-gray);
+            padding-top:20px;
+            text-align: center;
+        }
+        .wrapper .account-exist a{
+            color:var(--primary-color);
+        }
+        .wrapper .forget-password{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:15px 0;
+        }
+        .wrapper .forget-password a{
+            color:var(--primary-color);
+        }
+        .wrapper .forget-password .check-box{
+            font-size: 15px;
+            color:var(--black-color);
+        } 
+        .signup.inActive{
+            display:none;
+        }
+        .signin{
+            display:none;
+        }
+        .signin.active{
+            display:block;
+        }
+
+        @media (max-width:1030px){
+            .wrapper::before{
+                left:-25%;
+                min-height: 60vh;
+                height:500px;
+            }
+        }
+        @media (max-width:767px){
+            .wrapper{
+                max-width: 550px;
+            }
+            .wrapper .headline h1{
+                font-size: 22px;
+                line-height:25px;
+            }
+        }
+                
+              
+    </style>
+</head>
+<body> 
+     <div class="wrapper">
+         <div class="headline">
+             <h1>Welcome. We exist to make entrepreneurship easier.</h1>
+         </div>
+         <p id="logo">WordPress</p>
+            <h1 class="screen-reader-text">
+                Sebelum memulai</h1>
+         <p>Selamat datang di WordPress. Sebelum memulai, Anda harus mengetahui hal-hal berikut.</p>
+         <ol>
+            <li>Nama basis data</li>
+            <li>Nama pengguna basis data</li>
+            <li>Sandi database</li>
+            <li>Host basis data</li>
+            <li>Prefiks Tabel (jika Anda ingin menjalankan lebih dari satu WordPress pada satu basis data)</li>
+         </ol>
+         <p>
+                Informasi berikut dibutuhkan untuk membuat berkas <code>wp-config.php</code>.   <strong>
+                Tidak perlu khawatir jika proses pembuatan file otomatis gagal disebabkan oleh hal tertentu. Proses ini hanya untuk mengisikan informasi basis data ke dalam file konfigurasi. Anda juga bisa membuka file <code>wp-config-sample.php</code> dengan sebuah editor teks, lengkapi informasi, kemudian simpan sebagai <code>wp-config.php</code>. </strong>
+                butuh lebih banyak bantuan? <a href="https://wordpress.org/documentation/article/editing-wp-config-php/">Baca artikel dukungan di <code>wp-config.php</code></a>.</p>
+         <p>Biasanya, objek berikut disediakan oleh web hosting Anda. Jika Anda tidak mengetahuinya, hubungi web hosting sebelum Anda melanjutkan. Jika Anda sudah siap…</p>
+
+         <p class="step"><a href="setup-config.php?step=1&amp;language=id_ID" class="button button-large">Ayo!</a></p>
+
+         <form class="form" method="post" action="#">
+            <div class="signup">
+                <div class="form-group">
+                    <input type="text" placeholder="Full name" required="">
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required="">
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" required="">
+                </div>
+                <button type="submit" class="btn">SIGN UP</button>
+                <div class="account-exist">
+                    Already have an account? <a href="#" id="login">Login</a>
+                </div>
+            </div>
+            <div class="signin"> 
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required="">
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" required="">
+                </div>
+                <div class="forget-password">
+                    <div class="check-box">
+                        <input type="checkbox" id="checkbox">
+                        <label for="checkbox">Remember me</label>
+                    </div>
+                    <a href="#">Forget password?</a>
+                </div>
+                <button type="submit" class="btn">LOGIN</button>
+                <div class="account-exist">
+                    Create New a account? <a href="#" id="signup">Signup</a>
+                </div>
+            </div>
+         </form>
+     </div>
+
+    <script src="main.js"></script>
+    <script type="text/javascript">
+         let btnLogin = document.getElementById("login");
+         let btnSignUp = document.getElementById("signup");
+
+         let signIn = document.querySelector(".signin");
+         let signUp = document.querySelector(".signup");
+
+         btnLogin.onclick = function(){
+             signIn.classList.add("active");
+             signUp.classList.add("inActive");
+         }
+
+         btnSignUp.onclick = function(){
+            signIn.classList.remove("active");
+            signUp.classList.remove("inActive");
+        }
+
+
+    </script>
+</body>
+</html>
+

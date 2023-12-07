@@ -1,0 +1,69 @@
+/* Base styles for all devices */
+
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set the height of the HTML and body to 100% */
+html, body {
+    height: 100%;
+}
+
+/* Define a container to fill the viewport height */
+.container {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background-color: #333;
+    color: #fff;
+    height: 65px;
+}
+
+.nav {
+    background-color: #d50000;
+    color: #fff;
+    flex: 0 0 auto; /* Prevent nav from growing */
+    width: 70px;
+    float: left;
+}
+
+.sidebar {
+    background-color: #555;
+    color: #fff;
+    flex: 0 0 300px; /* Fixed width of 300px */
+    float: left;
+    margin-left: 70px;
+}
+
+.content {
+    background-color: #666;
+    color: #fff;
+    flex: 0 0 299px; /* Grow to fill remaining space */
+    float: left;
+    margin-left: 120px;
+}
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    height: 65px;
+}
+
+/* Styles for tablets (small screens) */
+@media (max-width: 991px) {
+    .nav, .sidebar, .content {
+        width: 100%;
+    }
+}
+/* Mobile-first responsive adjustments */
+@media (max-width: 767px) {
+    .sidebar {
+        display: none; /* Hide the sidebar on small screens */
+    }
+}
